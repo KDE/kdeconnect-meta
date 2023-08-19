@@ -1,0 +1,54 @@
+{
+    "$schema": "http://json-schema.org/schema#",
+    "title": "kdeconnect.presenter",
+    "description": "This packet is a presentation remote event.",
+    "examples": [
+        {
+            "id": 0,
+            "type": "kdeconnect.presenter",
+            "body": {
+                "dx": 1.0,
+                "dy": 1.0
+            }
+        },
+        {
+            "id": 0,
+            "type": "kdeconnect.presenter",
+            "body": {
+                "stop": true
+            }
+        }
+    ],
+    "type": "object",
+    "required": [
+        "id",
+        "type",
+        "body"
+    ],
+    "properties": {
+        "id": {
+            "type": "number"
+        },
+        "type": {
+            "type": "string",
+            "enum": ["kdeconnect.presenter"]
+        },
+        "body": {
+            "type": "object",
+            "properties": {
+                "dx": {
+                    "type": "number",
+                    "description": "A double precision integer indicating a position delta on the X-axis."
+                },
+                "dy": {
+                    "type": "number",
+                    "description": "A double precision integer indicating a position delta on the Y-axis."
+                },
+                "stop": {
+                    "type": "boolean",
+                    "description": "Stop controlling the virtual pointer."
+                }
+            }
+        }
+    }
+}
