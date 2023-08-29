@@ -13,11 +13,11 @@ This repo aggregates docs, tasks and information that applies to all KDE Connect
 
 ## Contributing
 
-We have a group to discuss development. You can access it from (Matrix)[https://go.kde.org/matrix/#/#kdeconnect:kde.org]. If you cannot find the correct room on Matrix, it might help if you first join the [KDE Matrix Space](https://go.kde.org/matrix/#/!OTxETzuhBDbnPqBqbP:kde.org). You can read more about (KDE's use of Matrix)[https://community.kde.org/Matrix].
+We have a group to discuss development. You can access it from [Matrix](https://go.kde.org/matrix/#/#kdeconnect:kde.org). If you cannot find the correct room on Matrix, it might help if you first join the [KDE Matrix Space](https://go.kde.org/matrix/#/!OTxETzuhBDbnPqBqbP:kde.org). You can read more about [KDE's use of Matrix](https://community.kde.org/Matrix).
 
-We also have a (mailing list)[https://mail.kde.org/mailman/listinfo/kdeconnect].
+We also have a [mailing list](https://mail.kde.org/mailman/listinfo/kdeconnect).
 
-There's a (User Base Wiki)[https://userbase.kde.org/KDEConnect] and a (Community Wiki)[https://community.kde.org/KDEConnect] (that we should unify at some point).
+There's a [User Base Wiki](https://userbase.kde.org/KDEConnect) and a [Community Wiki](https://community.kde.org/KDEConnect) (that we should unify at some point).
 
 You can find taks in the [issues](https://invent.kde.org/network/kdeconnect-meta/-/issues) of this repo. 
 
