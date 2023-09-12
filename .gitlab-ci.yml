@@ -1,0 +1,8 @@
+stages:
+  - test
+
+protocolmd_needs_update:
+  image: invent-registry.kde.org/sysadmin/ci-images/staticweb:latest
+  stage: test
+  script:
+    - make check
