@@ -43,9 +43,6 @@ This document should not be interpreted as a formal specification, or guaranteed
     * [`kdeconnect.notification.action`](#kdeconnectnotificationaction)
     * [`kdeconnect.notification.reply`](#kdeconnectnotificationreply)
     * [`kdeconnect.notification.request`](#kdeconnectnotificationrequest)
-* [Photo Plugin](#photo-plugin)
-    * [`kdeconnect.photo`](#kdeconnectphoto)
-    * [`kdeconnect.photo.request`](#kdeconnectphotorequest)
 * [Ping Plugin](#ping-plugin)
     * [`kdeconnect.ping`](#kdeconnectping)
 * [Presenter Plugin](#presenter-plugin)
@@ -1230,53 +1227,6 @@ This packet is a request for notifications.
 * `request`: [**`Boolean`**](#boolean)
 
     Indicates this is a request for the notifications.
-
-## Photo Plugin
-
-The Photo plugin allows requesting a device to take a photo and then transferred the result.
-
-### References
-
-* <https://invent.kde.org/network/kdeconnect-kde/tree/master/plugins/photo>
-* <https://invent.kde.org/network/kdeconnect-android/tree/master/src/org/kde/kdeconnect/Plugins/PhotoPlugin>
-
-### Packets
-
-#### `kdeconnect.photo`
-
-This packet is a photo transfer.
-
-```js
-{
-    "id": 0,
-    "type": "kdeconnect.photo",
-    "body": {
-        "filename": "photo.jpg"
-    },
-    "payloadSize": 882,
-    "payloadTransferInfo": {
-        "port": 1739
-    }
-}
-```
-
-* `filename`: [**`String`**](#string) [🔒](#symbols)
-
-    Name of the file being transferred.
-
-#### `kdeconnect.photo.request`
-
-This packet is a request for a photo transfer.
-
-```js
-{
-    "id": 0,
-    "type": "kdeconnect.photo.request",
-    "body": {}
-}
-```
-
-This packet has no body fields.
 
 ## Ping Plugin
 
