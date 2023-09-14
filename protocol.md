@@ -513,7 +513,7 @@ The FindMyPhone plugin allows requesting a device to announce it's location, usu
 
 #### `kdeconnect.findmyphone.request`
 
-This packet is a request for a device to accounce its location. By convention, sending a second packet cancels the request.
+This packet is a request for a device to announce its location. By convention, sending a second packet cancels the request.
 
 ```js
 {
@@ -796,7 +796,7 @@ This packet is a request for a pointer or keyboard event.
 
 ## MPRIS Plugin
 
-The MRIS plugin allows sharing control of media players.
+The MPRIS plugin allows sharing control of media players.
 
 ### References
 
@@ -1380,7 +1380,7 @@ This packet is a runcommand status update.
 
 ## SFTP Plugin
 
-The SFTP plugin enables secure filesharing with SFTP.
+The SFTP plugin enables secure file sharing with SFTP.
 
 ### References
 
@@ -1687,7 +1687,7 @@ This packet is a list of messages.
 
         * `addresses`: [**`Array`**](#array) of **`Address`** [🔒](#symbols)
 
-            A list of partipating contacts. If the message is incoming, the first `Address` will be the sender. If the message is outgoing, every `Address` will be a recipient.
+            A list of participating contacts. If the message is incoming, the first `Address` will be the sender. If the message is outgoing, every `Address` will be a recipient.
 
             * **`Address`** ([**`Object`**](#object))
 
