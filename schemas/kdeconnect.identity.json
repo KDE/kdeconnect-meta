@@ -53,7 +53,7 @@
                     "pattern": "^[a-fA-F0-9]{8}_[a-fA-F0-9]{4}_[a-fA-F0-9]{4}_[a-fA-F0-9]{4}_[a-fA-F0-9]{12}|.*$"
                 },
                 "deviceName": {
-                    "description": "A human-readable label for the device.",
+                    "description": "A human-readable label for the device. Must be 32 characters or shorter and can't contain any of the following punctuation marks `\"',;:.!?()[]<>`. When displayed to the user in the interface, it should always be displayed within quotes.",
                     "type": "string"
                 },
                 "deviceType": {

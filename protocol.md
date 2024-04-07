@@ -172,7 +172,7 @@ Each networking module may define additional fields necessary for clients to con
 
 * `deviceName`: [**`String`**](#string) [🔒](#symbols)
 
-    A human-readable label for the device.
+    A human-readable label for the device. Must be 32 characters or shorter and can't contain any of the following punctuation marks `"',;:.!?()[]<>`. When displayed to the user in the interface, it should always be displayed within quotes.
 
 * `deviceType`: [**`String`**](#string) [🔒](#symbols)
 
