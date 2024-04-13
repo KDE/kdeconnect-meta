@@ -61,6 +61,11 @@ An ordered collection of values.
 
 A mapping collection of string keys to values.
 
+{MD_HEADER * 4} `Null`
+
+The intentional absence of any object value. Note that this type is currently
+unused in the protocol and reserved for future use.
+
 {MD_HEADER * 3} Symbols
 
 * ⚠️ **Deprecated**
@@ -136,6 +141,7 @@ def md_type(schema: dict) -> str:
         'string': 'String',
         'array': 'Array',
         'object': 'Object',
+        'null': 'Null',
     }
 
     type_name = type_names.get(schema['type'], schema['type'])

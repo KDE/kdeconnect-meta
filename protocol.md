@@ -2181,6 +2181,11 @@ An ordered collection of values.
 
 A mapping collection of string keys to values.
 
+#### `Null`
+
+The intentional absence of any object value. Note that this type is currently
+unused in the protocol and reserved for future use.
+
 ### Symbols
 
 * ⚠️ **Deprecated**
