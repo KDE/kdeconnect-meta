@@ -132,8 +132,8 @@ def md_pattern(schema: dict) -> str:
 
     return f'`/{pattern}/`'
 
-def md_type(schema: dict) -> str:
-    """Return a JSON Schema ``type`` formatted for markdown."""
+def md_type_link(schema: dict, schema_type: str):
+    """Return a JSON Schema ``type`` link, formatted for markdown."""
 
     type_names = {
         'boolean': 'Boolean',
@@ -144,7 +144,7 @@ def md_type(schema: dict) -> str:
         'null': 'Null',
     }
 
-    type_name = type_names.get(schema['type'], schema['type'])
+    type_name = type_names.get(schema_type, schema_type)
     type_slug = md_slug(type_name)
     type_link = f'[**`{type_name}`**](#{type_slug})'
 
@@ -158,6 +158,16 @@ def md_type(schema: dict) -> str:
             type_link = f'{type_link} of {item_link}'
 
     return type_link
+
+def md_type(schema: dict) -> str:
+    """Return a JSON Schema ``type`` formatted for markdown."""
+
+    schema_types = schema['type']
+    if isinstance(schema_types, list):
+        type_links = [md_type_link(schema, s) for s in schema_types]
+        return '|'.join(type_links)
+
+    return md_type_link(schema, schema_types)
 
 
 #
