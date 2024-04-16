@@ -2084,6 +2084,8 @@ The Telephony plugin allows notification of events such as incoming or missed ca
 
 This packet is a telephony event, such as the phone ringing.
 
+Note that both the `sms` event type and the `messageBody` field are deprecated in favor of the SMS plugin.
+
 ```js
 {
     "id": 0,
@@ -2091,7 +2093,6 @@ This packet is a telephony event, such as the phone ringing.
     "body": {
         "event": "talking",
         "contactName": "John Smith",
-        "messageBody": "A text message",
         "phoneNumber": "555-555-5555",
         "phoneThumbnail": "<base64 encoded JPEG>"
     }
@@ -2111,6 +2112,20 @@ This packet is a telephony event, such as the phone ringing.
 }
 ```
 
+```js
+{
+    "id": 0,
+    "type": "kdeconnect.telephony",
+    "body": {
+        "event": "sms",
+        "contactName": "John Smith",
+        "messageBody": "A text message",
+        "phoneNumber": "555-555-5555",
+        "phoneThumbnail": "<base64 encoded JPEG>"
+    }
+}
+```
+
 * `event`: [**`String`**](#string) [🔒](#symbols)
 
     **`enum`**: `'missedCall'`|`'ringing'`|`'talking'`|`'sms'`
@@ -2123,7 +2138,7 @@ This packet is a telephony event, such as the phone ringing.
 
 * `messageBody`: [**`String`**](#string)
 
-    The message text associated with the event.
+    ⚠️ Deprecated: The message text associated with the event.
 
 * `phoneNumber`: [**`String`**](#string)
 
