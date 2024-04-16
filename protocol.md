@@ -2125,7 +2125,7 @@ This packet is a telephony event, such as the phone ringing.
 
     The message text associated with the event.
 
-* `phoneNumber`: [**`String`**](#string) [🔒](#symbols)
+* `phoneNumber`: [**`String`**](#string)
 
     The phone number associated with the event.
 

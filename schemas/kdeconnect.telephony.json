@@ -42,8 +42,7 @@
         "body": {
             "type": "object",
             "required": [
-                "event",
-                "phoneNumber"
+                "event"
             ],
             "properties": {
                 "event": {
