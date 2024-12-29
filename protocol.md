@@ -164,11 +164,9 @@ Each networking module may define additional fields necessary for clients to con
 
 * `deviceId`: [**`String`**](#string) [🔒](#symbols)
 
-    **`pattern`**: `/^[a-fA-F0-9]{8}_[a-fA-F0-9]{4}_[a-fA-F0-9]{4}_[a-fA-F0-9]{4}_[a-fA-F0-9]{12}|.*$/`
+    **`pattern`**: `/^_?[a-fA-F0-9]{8}_?[a-fA-F0-9]{4}_?[a-fA-F0-9]{4}_?[a-fA-F0-9]{4}_?[a-fA-F0-9]{12}_?$/`
 
-    A unique ID for the device, which should be a UUIDv4 string with hyphens (`-`) replaced with underscores (`_`), such as `740bd4b9_b418_4ee4_97d6_caf1da8151be`.
-
-    Note that older clients may report a device ID in a different format, and a compliant implementation must accept and respond with the device's reported ID. Implementations are responsible for any sanitization necessary for internal use.
+    A unique ID for the device, which should be a UUIDv4 string with hyphens (`-`) either replaced with underscores (`_`) or completely removed, such as `740bd4b9_b418_4ee4_97d6_caf1da8151be`. It can optionally start and end with an extra underscore.
 
 * `deviceName`: [**`String`**](#string) [🔒](#symbols)
 
