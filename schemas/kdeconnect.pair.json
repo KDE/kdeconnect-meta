@@ -41,6 +41,10 @@
                 "pair": {
                     "type": "boolean",
                     "description": "If `true` a pairing request is being accepted or a new one started. If `false` a pairing request is being rejected or a paired device is unpairing."
+                },
+                "timestamp": {
+                    "type": "number",
+                    "description": "Required if this is a pairing request. The current time in seconds since epoch. Used in the calculation of the pair verification code since protocol version 8."
                 }
             }
         }

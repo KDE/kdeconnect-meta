@@ -226,6 +226,10 @@ A device sends a packet with `pair` set to `false` to unpair or reject a pairing
 
     If `true` a pairing request is being accepted or a new one started. If `false` a pairing request is being rejected or a paired device is unpairing.
 
+* `timestamp`: [**`Number`**](#number)
+
+    Required if this is a pairing request. The current time in seconds since epoch. Used in the calculation of the pair verification code since protocol version 8.
+
 ## Battery Plugin
 
 The Battery plugin allows a device to expose the status of its battery.
