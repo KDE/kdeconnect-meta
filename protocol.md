@@ -1445,7 +1445,7 @@ This packet contains SFTP login information.
 
 * `password`: [**`String`**](#string) [🔒](#symbols)
 
-    The one-time password. Deprecated; use private key authentication via the TLS certificate.
+    The one-time password. ⚠️ Deprecated: use private key authentication via the TLS certificate.
 
 * `path`: [**`String`**](#string) [🔒](#symbols)
 

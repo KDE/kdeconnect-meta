@@ -71,7 +71,7 @@
                 },
                 "password": {
                     "type": "string",
-                    "description": "The one-time password. Deprecated; use private key authentication via the TLS certificate."
+                    "description": "The one-time password. ⚠️ Deprecated: use private key authentication via the TLS certificate."
                 },
                 "path": {
                     "type": "string",
