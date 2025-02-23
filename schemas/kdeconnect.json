@@ -24,7 +24,7 @@
     "properties": {
         "id": {
             "type": "number",
-            "description": "A UNIX epoch timestamp (ms). In some cases KDE Connect clients erroneously set this field as a string."
+            "description": "⚠️ Deprecated: Clients should still populate this field (eg: with a UNIX epoch timestamp) but never read it as it will be removed soon."
         },
         "type": {
             "type": "string",

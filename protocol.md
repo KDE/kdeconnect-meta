@@ -111,7 +111,7 @@ Payloads are declared by the presence of the `payloadSize` and `payloadTransferI
 
 * `id`: [**`Number`**](#number) [🔒](#symbols)
 
-    A UNIX epoch timestamp (ms). In some cases KDE Connect clients erroneously set this field as a string.
+    ⚠️ Deprecated: Clients should still populate this field (eg: with a UNIX epoch timestamp) but never read it as it will be removed soon.
 
 * `type`: [**`String`**](#string) [🔒](#symbols)
 
@@ -157,7 +157,7 @@ Each networking module may define additional fields necessary for clients to con
             "kdeconnect.mock.echo",
             "kdeconnect.mock.transfer"
         ],
-        "protocolVersion": 7
+        "protocolVersion": 8
     }
 }
 ```
@@ -190,9 +190,9 @@ Each networking module may define additional fields necessary for clients to con
 
 * `protocolVersion`: [**`Number`**](#number) [🔒](#symbols)
 
-    **`enum`**: `7`
+    **`enum`**: `7`|`8`
 
-    The protocol version. The only value currently valid is `7`
+    The latest protocol version implemented by the device. The current version of the protocol described in this document is `8`.
 
 #### `kdeconnect.pair`
 

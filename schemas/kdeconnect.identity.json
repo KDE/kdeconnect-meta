@@ -18,7 +18,7 @@
                     "kdeconnect.mock.echo",
                     "kdeconnect.mock.transfer"
                 ],
-                "protocolVersion": 7
+                "protocolVersion": 8
             }
         }
     ],
@@ -83,9 +83,9 @@
                     }
                 },
                 "protocolVersion": {
-                    "description": "The protocol version. The only value currently valid is `7`",
+                    "description": "The latest protocol version implemented by the device. The current version of the protocol described in this document is `8`.",
                     "type": "number",
-                    "enum": [7]
+                    "enum": [7, 8]
                 }
             }
         }
