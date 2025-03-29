@@ -7,7 +7,7 @@
             "id": 0,
             "type": "kdeconnect.identity",
             "body": {
-                "deviceId": "740bd4b9_b418_4ee4_97d6_caf1da8151be",
+                "deviceId": "740bd4b9b4184ee497d6caf1da8151be",
                 "deviceName": "FOSS Phone",
                 "deviceType": "phone",
                 "incomingCapabilities": [
@@ -48,9 +48,9 @@
             ],
             "properties": {
                 "deviceId": {
-                    "description": "A unique ID for the device. Must be between 32 and 38 characters and made of only alphanumerical characters and underscores. A valid device ID can be generated from a random UUIDv4 string by removing the hyphens (`-`) or replacing them with underscores (`_`), such as `740bd4b9_b418_4ee4_97d6_caf1da8151be`.",
+                    "description": "A unique ID for the device. Device IDs must be generated to be between 32 and 38 alphanumerical characters, and will be also set as the Common Name in the device TLS certificate. For backwards compatibility, however, implementations must accept (but not generate new) device IDs that also include hyphens (`-`) and/or underscores (`_`). A way to generate a valid device ID is getting a random UUIDv4 string and removing the hyphens (`-`), such as `740bd4b9b4184ee497d6caf1da8151be`.",
                     "type": "string",
-                    "pattern": "^[a-zA-Z0-9_]{32,38}$"
+                    "pattern": "^[a-zA-Z0-9_-]{32,38}$"
                 },
                 "deviceName": {
                     "description": "A human-readable label for the device. Must be 1-32 characters in length and can't contain any of the following punctuation marks `\"',;:.!?()[]<>`. When displayed to the user for pairing or other privileged interactions, it should always be displayed within quotes.",
