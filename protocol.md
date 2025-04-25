@@ -172,7 +172,7 @@ Each networking module may define additional fields necessary for clients to con
 
     **`pattern`**: `/^[^"',;:.!?()\[\]<>]{1,32}$/`
 
-    A human-readable label for the device. Must be 1-32 characters in length. Shouldn't contain any of the following punctuation marks `"',;:.!?()[]<>` If a name is received with invalid characters, they should be sanitized before being used. When displayed to the user for pairing or other privileged interactions, it should always be displayed within quotes.
+    A human-readable label for the device. Must be 1-32 characters in length. Shouldn't contain any of the following punctuation marks `"',;:.!?()[]<>` If a name is received with invalid characters, it should be sanitized by removing the invalid characters before being used. When displayed to the user for pairing or other privileged interactions, it should always be displayed within quotes.
 
 * `deviceType`: [**`String`**](#string) [🔒](#symbols)
 
