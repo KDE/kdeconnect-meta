@@ -372,7 +372,7 @@ This packet is a connectivity report.
             },
             "17": {
                 "networkType": "HSPA",
-                "signalStrength": -1
+                "signalStrength": 0
             }
         }
     }
@@ -385,7 +385,7 @@ This packet is a connectivity report.
 
     * **`Signal`** ([**`Object`**](#object))
 
-        The ID of the attachment.
+        The ID of the connection.
 
         * `networkType`: [**`String`**](#string) [🔒](#symbols)
 
@@ -395,9 +395,9 @@ This packet is a connectivity report.
 
         * `signalStrength`: [**`Number`**](#number) [🔒](#symbols)
 
-            **`range`**: `-1–5`
+            **`range`**: `0–4`
 
-            The signal strength. As with the battery plugin, `-1` means the device is not available. Values `0` through `5` describe the coarse strength of the signal.
+            The signal strength. Values `0` through `4` describe the coarse strength of the signal.
 
 #### `kdeconnect.connectivity_report.request`
 
