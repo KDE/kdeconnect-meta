@@ -1082,7 +1082,6 @@ This packet is a notification.
         "ticker": "Information: Something happened",
         "appName": "Terminal",
         "isClearable": true,
-        "onlyOnce": false,
         "silent": true,
         "requestReplyId": "17499937-334b-4704-9c2c-24a0bcd4155a",
         "time": "1631436143331",
@@ -1120,7 +1119,7 @@ This packet is a notification.
 
 * `onlyOnce`: [**`Boolean`**](#boolean)
 
-    If `true` the notification should only be sent the first time it's received, otherwise it should be re-sent each time. See the `silent` field for determining whether a notification is new or not.
+    ⚠️ Deprecated: If `true` the notification should only be sent the first time it's received, otherwise it should be re-sent each time. See the `silent` field for determining whether a notification is new or not.
 
 * `silent`: [**`Boolean`**](#boolean)
 
