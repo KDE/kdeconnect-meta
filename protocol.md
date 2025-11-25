@@ -26,6 +26,9 @@ This document should not be interpreted as a formal specification, or guaranteed
     * [`kdeconnect.contacts.request_vcards_by_uid`](#kdeconnectcontactsrequest_vcards_by_uid)
     * [`kdeconnect.contacts.response_uids_timestamps`](#kdeconnectcontactsresponse_uids_timestamps)
     * [`kdeconnect.contacts.response_vcards`](#kdeconnectcontactsresponse_vcards)
+* [Drawing Tablet Plugin](#drawing-tablet-plugin)
+    * [`kdeconnect.digitizer.session`](#kdeconnectdigitizersession)
+    * [`kdeconnect.digitizer`](#kdeconnectdigitizer)
 * [FindMyPhone Plugin](#findmyphone-plugin)
     * [`kdeconnect.findmyphone.request`](#kdeconnectfindmyphonerequest)
 * [Lock](#lock)
@@ -504,6 +507,81 @@ This packet is a list of contact UIDs with vCard data.
 * `uids`: [**`Array`**](#array) of [**`String`**](#string) [🔒](#symbols)
 
     A list of contact UIDs. Each UID has a corresponding uid-vcard pair in the body object.
+
+## Drawing Tablet Plugin
+
+This plugin allows users to use their devices as pressure sensitive drawing tablets.
+
+### References
+
+* <https://invent.kde.org/network/kdeconnect-kde/tree/master/plugins/digitizer>
+* <https://invent.kde.org/network/kdeconnect-android/tree/master/src/org/kde/kdeconnect/Plugins/DigitizerPlugin>
+
+### Packets
+
+#### `kdeconnect.digitizer.session`
+
+This packet either starts or stops a drawing tablet session. The session is started when this packet is sent with a `start` action. When it is started, it includes the information necessary to create a fake drawing tablet device on the receiver. The session is ended when this packet is sent with an `end` action, or the device disconnects. It is valid to send both a start or an end packet regardless whether a session exists or not. If a session exists and a start packet is sent, the session will be first ended, and then another session will be started. If no session exists and an end packet is sent, nothing will happen.
+
+* `width`: [**`Number`**](#number)
+
+    **`range`**: Unrestricted
+
+    (Only valid for a `start` action) An integer describing the width of the faked drawing tablet device. Not necessarily the width of the sending device's screen.
+
+* `height`: [**`Number`**](#number)
+
+    **`range`**: Unrestricted
+
+    (Only valid for a `start` action) An integer describing the height of the faked drawing tablet device. Not necessarily the height of the sending device's screen.
+
+* `resolutionX`: [**`Number`**](#number)
+
+    **`range`**: Unrestricted
+
+    (Only valid for a `start` action) An integer describing the horizontal resolution of the device in pixels/mm.
+
+* `resolutionY`: [**`Number`**](#number)
+
+    **`range`**: Unrestricted
+
+    (Only valid for a `start` action) An integer describing the vertical resolution of the device in pixels/mm.
+
+#### `kdeconnect.digitizer`
+
+This packet is a stylus (or finger) event. `kdeconnect.digitizer` packets must not be sent until a session has been started. You may start a session by sending the `kdeconnect.digitizer.session` packet with the field `action` set to `start`, and filling the appropriate fields.
+
+* `active`: [**`bool`**](#bool)
+
+    An optional boolean describing whether the device is currently tracking the tool. This is set to `false` when the tool exits the hover range, for example.
+
+* `touching`: [**`bool`**](#bool)
+
+    An optional boolean describing whether the tool is currently touching the screen. Only the last value is used.
+
+* `tool`: [**`String`**](#string)
+
+    **`enum`**: `'Pen'`|`'Rubber'`
+
+    An optional string enum describing the type of tool the user has equipped.
+
+* `x`: [**`Number`**](#number)
+
+    **`range`**: Unrestricted
+
+    An optional integer describing the current absolute X position of the tool.
+
+* `y`: [**`Number`**](#number)
+
+    **`range`**: Unrestricted
+
+    An optional integer describing the current absolute Y position of the tool.
+
+* `pressure`: [**`Number`**](#number)
+
+    **`range`**: `0–1`
+
+    An optional floating point number describing how hard the tool is pressing on the screen.
 
 ## FindMyPhone Plugin
 

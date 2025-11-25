@@ -1,0 +1,55 @@
+{
+    "$schema": "http://json-schema.org/schema#",
+    "title": "kdeconnect.digitizer",
+    "description": "This packet is a stylus (or finger) event. `kdeconnect.digitizer` packets must not be sent until a session has been started. You may start a session by sending the `kdeconnect.digitizer.session` packet with the field `action` set to `start`, and filling the appropriate fields.",
+    "examples": [],
+    "type": "object",
+    "required": [
+        "id",
+        "type",
+        "body"
+    ],
+    "properties": {
+        "id": {
+            "type": "number"
+        },
+        "type": {
+            "type": "string",
+            "enum": ["kdeconnect.digitizer"]
+        },
+        "body": {
+            "type": "object",
+            "properties": {
+                "active": {
+                    "type": "bool",
+                    "description": "An optional boolean describing whether the device is currently tracking the tool. This is set to `false` when the tool exits the hover range, for example."
+                },
+                "touching": {
+                    "type": "bool",
+                    "description": "An optional boolean describing whether the tool is currently touching the screen. Only the last value is used."
+                },
+                "tool": {
+                    "type": "string",
+                    "enum": ["Pen", "Rubber"],
+                    "description": "An optional string enum describing the type of tool the user has equipped."
+                },
+                "x": {
+                    "type": "number",
+                    "minimum": 0,
+                    "description": "An optional integer describing the current absolute X position of the tool."
+                },
+                "y": {
+                    "type": "number",
+                    "minimum": 0,
+                    "description": "An optional integer describing the current absolute Y position of the tool."
+                },
+                "pressure": {
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 1,
+                    "description": "An optional floating point number describing how hard the tool is pressing on the screen."
+                }
+            }
+        }
+    }
+}

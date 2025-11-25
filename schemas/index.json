@@ -69,6 +69,18 @@
             ]
         },
         {
+            "title": "Drawing Tablet Plugin",
+            "description": "This plugin allows users to use their devices as pressure sensitive drawing tablets.",
+            "packets": [
+                "kdeconnect.digitizer.session",
+                "kdeconnect.digitizer"
+            ],
+            "references": [
+                "https://invent.kde.org/network/kdeconnect-kde/tree/master/plugins/digitizer",
+                "https://invent.kde.org/network/kdeconnect-android/tree/master/src/org/kde/kdeconnect/Plugins/DigitizerPlugin"
+            ]
+        },
+        {
             "title": "FindMyPhone Plugin",
             "description": "The FindMyPhone plugin allows requesting a device to announce it's location, usually by playing a sound like a traditional cordless phone.",
             "packets": [

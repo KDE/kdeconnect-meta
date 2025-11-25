@@ -1,0 +1,44 @@
+{
+    "$schema": "http://json-schema.org/schema#",
+    "title": "kdeconnect.digitizer.session",
+    "description": "This packet either starts or stops a drawing tablet session. The session is started when this packet is sent with a `start` action. When it is started, it includes the information necessary to create a fake drawing tablet device on the receiver. The session is ended when this packet is sent with an `end` action, or the device disconnects. It is valid to send both a start or an end packet regardless whether a session exists or not. If a session exists and a start packet is sent, the session will be first ended, and then another session will be started. If no session exists and an end packet is sent, nothing will happen.",
+    "examples": [],
+    "type": "object",
+    "required": [
+        "id",
+        "action"
+    ],
+    "properties": {
+        "id": {
+            "type": "number"
+        },
+        "type": {
+            "type": "string",
+            "enum": ["kdeconnect.digitizer.session"]
+        },
+        "action": {
+            "type": "string",
+            "enum": ["start", "end"]
+        },
+        "width": {
+            "type": "number",
+            "minimum": 0,
+            "description": "(Only valid for a `start` action) An integer describing the width of the faked drawing tablet device. Not necessarily the width of the sending device's screen."
+        },
+        "height": {
+            "type": "number",
+            "minimum": 0,
+            "description": "(Only valid for a `start` action) An integer describing the height of the faked drawing tablet device. Not necessarily the height of the sending device's screen."
+        },
+        "resolutionX": {
+            "type": "number",
+            "minimum": 0,
+            "description": "(Only valid for a `start` action) An integer describing the horizontal resolution of the device in pixels/mm."
+        },
+        "resolutionY": {
+            "type": "number",
+            "minimum": 0,
+            "description": "(Only valid for a `start` action) An integer describing the vertical resolution of the device in pixels/mm."
+        }
+    }
+}
