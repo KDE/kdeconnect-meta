@@ -895,7 +895,7 @@ The MPRIS plugin allows sharing control of media players.
 
 #### `kdeconnect.mpris`
 
-This packet is used to expose media players to a remote device and transfer album art.
+This packet is used for two things: if it contains a `playerList` field, it is used to enumerate the available media players to a remote device; if it contains a `player` field, it is used to report the status of a specific media player. Note that `player` packets can be incremental, ie: only contain the fields that changed since the last update.
 
 ```js
 {
@@ -1000,7 +1000,7 @@ This packet is used to expose media players to a remote device and transfer albu
 
 * `albumArtUrl`: [**`String`**](#string)
 
-    Current track album art URL.
+    Current track album art URL. If it's not an online resource, the receiving device can request the album art as a payload from us (see packet type kdeconnect.mpris.request).
 
 * `nowPlaying`: [**`String`**](#string)
 
@@ -1102,7 +1102,7 @@ This packet is used to request the status of remote media players, issue command
 
 * `Seek`: [**`Number`**](#number)
 
-    A request to seek relative to the current position (us).
+    A request to seek relative to the current position (us). Note the capital S.
 
 * `setLoopStatus`: [**`String`**](#string)
 
@@ -1114,7 +1114,7 @@ This packet is used to request the status of remote media players, issue command
 
     **`range`**: Unrestricted
 
-    A request to set the track position (ms).
+    A request to set the track position (ms). Note the capital S.
 
 * `setShuffle`: [**`Boolean`**](#boolean)
 
@@ -1131,6 +1131,10 @@ This packet is used to request the status of remote media players, issue command
     **`enum`**: `'Pause'`|`'Play'`|`'PlayPause'`|`'Stop'`|`'Next'`|`'Previous'`
 
     A request to activate a player action.
+
+* `albumArtUrl`: [**`String`**](#string)
+
+    A request to transfer the album art payload located at the given URL as a payload.
 
 ## Notification Plugin
 

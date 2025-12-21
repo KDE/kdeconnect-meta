@@ -71,7 +71,7 @@
                 },
                 "Seek": {
                     "type": "number",
-                    "description": "A request to seek relative to the current position (us)."
+                    "description": "A request to seek relative to the current position (us). Note the capital S."
                 },
                 "setLoopStatus": {
                     "type": "string",
@@ -85,7 +85,7 @@
                 "SetPosition": {
                     "type": "number",
                     "minimum": 0,
-                    "description": "A request to set the track position (ms)."
+                    "description": "A request to set the track position (ms). Note the capital S."
                 },
                 "setShuffle": {
                     "type": "boolean",
@@ -108,6 +108,10 @@
                         "Previous"
                     ],
                     "description": "A request to activate a player action."
+                },
+                "albumArtUrl": {
+                    "type": "string",
+                    "description": "A request to transfer the album art payload located at the given URL as a payload."
                 }
             }
         }

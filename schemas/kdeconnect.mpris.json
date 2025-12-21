@@ -1,7 +1,7 @@
 {
     "$schema": "http://json-schema.org/schema#",
     "title": "kdeconnect.mpris",
-    "description": "This packet is used to expose media players to a remote device and transfer album art.",
+    "description": "This packet is used for two things: if it contains a `playerList` field, it is used to enumerate the available media players to a remote device; if it contains a `player` field, it is used to report the status of a specific media player. Note that `player` packets can be incremental, ie: only contain the fields that changed since the last update.",
     "examples": [
         {
             "id": 0,
@@ -120,7 +120,7 @@
                 },
                 "albumArtUrl": {
                     "type": "string",
-                    "description": "Current track album art URL."
+                    "description": "Current track album art URL. If it's not an online resource, the receiving device can request the album art as a payload from us (see packet type kdeconnect.mpris.request)."
                 },
                 "nowPlaying": {
                     "type": "string",
