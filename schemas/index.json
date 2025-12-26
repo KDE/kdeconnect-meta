@@ -1,19 +1,41 @@
 {
     "title": "Protocol Reference",
-    "description": "This reference is generated from JSON Schemas used in the testing and development of KDE Connect.\n\nThis document should not be interpreted as a formal specification, or guaranteed interface for third parties.",
+    "description": "This reference is generated from JSON Schemas used in the testing and development of KDE Connect.\n\nWe make an effort to keep this document useful, accurate and up-to-date, although it might be incomplete and it's not a formal specification.",
     "sections": [
         {
-            "title": "Core Protocol",
-            "description": "The core of the KDE Connect protocol is built on the exchange of JSON packets, similar to JSON-RPC.",
+            "title": "Overview",
+            "description": "There are several KDE Connect implementations (see References). They all follow the protocol described here so that they can interoperate.\n\nAt its core, the protocol works by sending JSON packets between two devices that want to communicate. KDE Connect abstracts how devices discover each other, how data is transported, or how communication is encrypted, so features can be implemented on top of the packet abstraction without worrying about the underlying details.\n\nIn most implementations of KDE Connect, the different features are written as \"plugins\" that can be enabled and disabled independently. This specification describes the packet types that the existing plugins can send and receive.\n\nPackets are sent with no guarantee that they will be received, or that if received there will be a response. For this reason, packet handling in KDE Connect is typically idempotent.\n\nPackets are sent sequentially as strings, separated by a newline character.",
             "packets": [
-                "kdeconnect",
-                "kdeconnect.identity",
-                "kdeconnect.pair"
+                "kdeconnect"
             ],
             "references": [
                 "https://invent.kde.org/network/kdeconnect-kde",
                 "https://invent.kde.org/network/kdeconnect-android",
-                "https://invent.kde.org/network/kdeconnect-ios"
+                "https://invent.kde.org/network/kdeconnect-ios",
+                "https://github.com/andyholmes/valent",
+                "https://github.com/GSConnect/gnome-shell-extension-gsconnect/releases"
+            ]
+        },
+        {
+            "title": "Device Discovery",
+            "description": "KDE Connect-enabled devices use different methods to discover each other before they can proceed to establish a connection and exchange packets. All the existing implementations support LAN discovery (for devices in the same network), while the Android and C++ implementations support Bluetooth as well. In the discovery phase, a device will send its device ID and protocol version to any other devices it can find and will establish a non-encrypted TCP connection with them.\n\nFor LAN discovery, devices listen for incoming connections on a TCP port (typically 1716) and announce their presence in the network in two ways: UDP broadcast and mDNS (Multicast DNS).",
+            "subsections": [
+                "discovery_udp",
+                "discovery_mdns"
+            ]
+        },
+        {
+            "title": "Device Connection",
+            "description": "In this phase, the devices upgrade the connection to TLS and exchange the remaining details about themselves (device name, device type and supported packet types).\n\nThe following sequence of events happens right after the discovery phase, when Device A has discovered Device B and has established a (still unencrypted) TCP connection with it:\n- Device A sends a packet with type `kdeconnect.identity` to Device B with: `deviceId`, `protocolVersion`, `targetDeviceId`, and `targetProtocolVersion`. The first two are Device A's own ID and protocol version, while the second two refer to the discovered Device B.\n- Device B verifies that the target values match their own, or otherwise aborts.\n- Both ends upgrade the connection to TLS, Device B acting as the client and Device A acting as the server. If the devices have previously paired (see Device Pairing), they will only allow the connection if the certificate is use matches the one that was stored when the devices were paired (aka certificate pinning). If they aren't paired, any certificate will be accepted (alike to SSH's Trust-On-First-Use).\n- Once the connection is secured with TLS, both devices send a packet with type `kdeconnect.identity` including their own `deviceId`, `protocolVersion`, `deviceName`, `deviceType`, `incomingCapabilities`, and `outgoingCapabilities`. If the `deviceId` or the `protocolVersion` don't match those used earlier to determine if the device is paired or not, the connection must be aborted.\n\nOnce this is done, each device has learnt about the other and can display it to the user by their name and an icon corresponding to the device type. Packets can now be exchanged between the two devices securely, although for unpaired devices all packets except pairing packets should be discarded.",
+            "packets": [
+                "kdeconnect.identity"
+            ]
+        },
+        {
+            "title": "Device Pairing",
+            "description": "Once two devices are connected but not previously paired, the user can initiate the pairing of the two from either device. When pairing is initiated, a packet with type `kdeconnect.pair` is sent from the initiating device to the other device. The receiving device will then prompt the user to accept or reject the pairing request. If accepted, both devices will store each other's TLS certificates for future connections.\n\nThe packet exchange during pairing process is as follows:\n- Device A sends a packet with type `kdeconnect.pair` to Device B with the field `pair` set to `true` and `timestamp` sent to the current time in seconds since Epoch.\n- Device B will discard the packet if the timestamp is off by more than 30 minutes. Otherwise, it will prompt the user to accept or reject the pairing request. If the user rejects, it will send a packet with type `kdeconnect.pair` with the field `pair` set to `false`. If the user accepts, it will send a packet with type `kdeconnect.pair` with the field `pair` set to `true`.\n\nAs an additional security measure, the pairing prompt that is shown to the user may include a short authentication string calculated by getting the first 8 characters of the hexadecimal representation of the SHA256 hash of the concatenation of 3 elements: both devices' TLS public keys taken in alphabetical order and the timestamp used in the pairing as a string.\n\nA paired device can send a packet with `pair` set to `false` to unpair an already paired device.",
+            "packets": [
+                "kdeconnect.pair"
             ]
         },
         {
@@ -82,7 +104,7 @@
         },
         {
             "title": "FindMyPhone Plugin",
-            "description": "The FindMyPhone plugin allows requesting a device to announce it's location, usually by playing a sound like a traditional cordless phone.",
+            "description": "The FindMyPhone plugin allows requesting a device to announce its location, usually by playing a sound like a traditional cordless phone.",
             "packets": [
                 "kdeconnect.findmyphone.request"
             ],

@@ -1,0 +1,16 @@
+{
+    "$schema": "http://json-schema.org/schema#",
+    "title": "UDP discovery",
+    "description": "When KDE Connect connects to a new network or at boot, it will broadcast a UDP datagram on port 1716. The datagram contains a JSON packet with type `kdeconnect.identity` with the fields `deviceId`, `protocolVersion` and the `tcpPort` where it is listening for connections. When a packet of this type is received, it will try to establish a TCP connection with the sender IP at the port specified.",
+    "examples": [
+        {
+            "id": 0,
+            "type": "kdeconnect.identity",
+            "body": {
+                "deviceId": "740bd4b9b4184ee497d6caf1da8151be",
+                "protocolVersion": 8,
+                "tcpPort": 1716
+            }
+        }
+    ]
+}

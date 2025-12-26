@@ -280,6 +280,24 @@ def write_packet(fobj: TextIO, packet: dict, depth: int = 1) -> None:
 
 
 # pylint: disable-next=redefined-outer-name
+def write_subsection(fobj: TextIO, subsection: dict, depth: int = 1) -> None:
+    """A subsection with its own title."""
+
+    # Header
+    header = MD_HEADER * depth
+    title = subsection.get('title', 'Untitled')
+    description = subsection.get('description', 'No description')
+
+    fobj.write(f'{header} {title}\n\n')
+    fobj.write(f'{description}\n\n')
+
+    # Examples
+    if 'examples' in subsection:
+        for example in subsection.get('examples', {}):
+            text = json.dumps(example, indent=4)
+            fobj.write(f'```js\n{text}\n```\n\n')
+
+# pylint: disable-next=redefined-outer-name
 def write_section(fobj: TextIO, section: dict, depth: int = 1) -> None:
     """Document a section with references."""
 
@@ -309,6 +327,9 @@ def write_section(fobj: TextIO, section: dict, depth: int = 1) -> None:
         for packet in section.get('packets', {}):
             write_packet(fobj, packet, depth + 2)
 
+    for subsection in section.get('subsections', {}):
+        write_subsection(fobj, subsection, depth + 1)
+
 
 # pylint: disable-next=redefined-outer-name
 def write_toc(fobj: TextIO, section: dict, packet: bool = False, depth: int = 0) -> None:
@@ -324,6 +345,9 @@ def write_toc(fobj: TextIO, section: dict, packet: bool = False, depth: int = 0)
 
     for subsection in section.get('packets', []):
         write_toc(fobj, subsection, True, depth + 1)
+
+    for subsection in section.get('subsections', []):
+        write_toc(fobj, subsection, False, depth + 1)
 
 
 def load_json(path: str) -> dict:
@@ -349,6 +373,9 @@ def write_index(fobj: TextIO, path: str) -> None:
         if 'packets' in section:
             packets = [os.path.join(index_dir, p) for p in section['packets']]
             section['packets'] = [load_json(f'{p}.json') for p in packets]
+        if 'subsections' in section:
+            packets = [os.path.join(index_dir, p) for p in section['subsections']]
+            section['subsections'] = [load_json(f'{p}.json') for p in packets if type(p) == str]
 
     # Header
     title = index.get('title', 'Untitled')

@@ -1,13 +1,24 @@
 {
     "$schema": "http://json-schema.org/schema#",
     "title": "kdeconnect.identity",
-    "description": "The KDE Connect identity packet is used to identify devices and their capabilities.\n\nEach networking module may define additional fields necessary for clients to connect. For example, in the LAN protocol the identity packet is broadcast over UDP with a `tcpPort` field.",
+    "description": "The KDE Connect identity packet is used to identify devices and their capabilities.",
     "examples": [
         {
             "id": 0,
             "type": "kdeconnect.identity",
             "body": {
                 "deviceId": "740bd4b9b4184ee497d6caf1da8151be",
+                "protocolVersion": 8,
+                "targetDeviceId": "abcdef1234567890abcdef1234567890",
+                "targetProtocolVersion": 8
+            }
+        },
+        {
+            "id": 0,
+            "type": "kdeconnect.identity",
+            "body": {
+                "deviceId": "740bd4b9b4184ee497d6caf1da8151be",
+                "protocolVersion": 8,
                 "deviceName": "FOSS Phone",
                 "deviceType": "phone",
                 "incomingCapabilities": [
@@ -17,8 +28,7 @@
                 "outgoingCapabilities": [
                     "kdeconnect.mock.echo",
                     "kdeconnect.mock.transfer"
-                ],
-                "protocolVersion": 8
+                ]
             }
         }
     ],
@@ -40,10 +50,6 @@
             "type": "object",
             "required": [
                 "deviceId",
-                "deviceName",
-                "deviceType",
-                "incomingCapabilities",
-                "outgoingCapabilities",
                 "protocolVersion"
             ],
             "properties": {
@@ -56,6 +62,16 @@
                     "description": "A human-readable label for the device. Must be 1-32 characters in length. Shouldn't contain any of the following punctuation marks `\"',;:.!?()[]<>` If a name is received with invalid characters, it should be sanitized by removing the invalid characters before being used. When displayed to the user for pairing or other privileged interactions, it should always be displayed within quotes.",
                     "type": "string",
                     "pattern": "^[^\"',;:.!?()\\[\\]<>]{1,32}$"
+                },
+                "targetDeviceId": {
+                    "description": "The device ID of the device we discovered and are connecting to.",
+                    "type": "string",
+                    "pattern": "^[a-zA-Z0-9_-]{32,38}$"
+                },
+                "targetProtocolVersion": {
+                    "description": "The protocol version of the device we discovered and are connecting to.",
+                    "type": "number",
+                    "enum": [7, 8]
                 },
                 "deviceType": {
                     "description": "A device type string. Since the `incomingCapabilities` and `outgoingCapabilities` fields describe the functionality of a device, the `deviceType` field is typically only used to select an icon.",

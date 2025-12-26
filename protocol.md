@@ -4,13 +4,18 @@ Title: Protocol Reference
 
 This reference is generated from JSON Schemas used in the testing and development of KDE Connect.
 
-This document should not be interpreted as a formal specification, or guaranteed interface for third parties.
+We make an effort to keep this document useful, accurate and up-to-date, although it might be incomplete and it's not a formal specification.
 
 ## Table of Contents
 
-* [Core Protocol](#core-protocol)
+* [Overview](#overview)
     * [`kdeconnect.*`](#kdeconnect)
+* [Device Discovery](#device-discovery)
+    * [UDP discovery](#udp-discovery)
+    * [mDSN discovery](#mdsn-discovery)
+* [Device Connection](#device-connection)
     * [`kdeconnect.identity`](#kdeconnectidentity)
+* [Device Pairing](#device-pairing)
     * [`kdeconnect.pair`](#kdeconnectpair)
 * [Battery Plugin](#battery-plugin)
     * [`kdeconnect.battery`](#kdeconnectbattery)
@@ -78,25 +83,33 @@ This document should not be interpreted as a formal specification, or guaranteed
     * [Data Types](#data-types)
 
 
-## Core Protocol
+## Overview
 
-The core of the KDE Connect protocol is built on the exchange of JSON packets, similar to JSON-RPC.
+There are several KDE Connect implementations (see References). They all follow the protocol described here so that they can interoperate.
+
+At its core, the protocol works by sending JSON packets between two devices that want to communicate. KDE Connect abstracts how devices discover each other, how data is transported, or how communication is encrypted, so features can be implemented on top of the packet abstraction without worrying about the underlying details.
+
+In most implementations of KDE Connect, the different features are written as "plugins" that can be enabled and disabled independently. This specification describes the packet types that the existing plugins can send and receive.
+
+Packets are sent with no guarantee that they will be received, or that if received there will be a response. For this reason, packet handling in KDE Connect is typically idempotent.
+
+Packets are sent sequentially as strings, separated by a newline character.
 
 ### References
 
 * <https://invent.kde.org/network/kdeconnect-kde>
 * <https://invent.kde.org/network/kdeconnect-android>
 * <https://invent.kde.org/network/kdeconnect-ios>
+* <https://github.com/andyholmes/valent>
+* <https://github.com/GSConnect/gnome-shell-extension-gsconnect/releases>
 
 ### Packets
 
 #### `kdeconnect.*`
 
-The structure of a KDE Connect packet is similar to a JSON-RPC request, although the protocols are quite different. The `id` field holds a timestamp, the `type` field holds a type string and the `body` field holds a dictionary of parameters. While the `id` field is not used in KDE Connect, the `type` and `body` fields are analogous to the `method` and `params` members of a JSON-RPC request.
+All packets follow the same general structure, with a `type` field that indicates what kind of packet it is and a `body` field that holds a dictionary of parameters specific to that packet type (similar to the `method` and `params` members of a JSON-RPC request).
 
-Packets are sent by devices with no guarantee that they will be received, or that if received there will be a response. For this reason, plugins consistently handle any incoming packet regardless of whether it was expected or not. In other words, packet handling in KDE Connect is typically idempotent.
-
-Payloads are declared by the presence of the `payloadSize` and `payloadTransferInfo` fields, which indicate that the packet sender is waiting to transfer `payloadSize` bytes over the connection described by `payloadTransferInfo`. For example, the `payloadTransferInfo` dictionary might have a `port` entry holding a TCP port the device is listening on for incoming connections.
+Additionally, payloads (optional binary data attachments) are declared by the presence of the `payloadSize` and `payloadTransferInfo` fields, which indicate that the packet sender is waiting to transfer `payloadSize` bytes over the connection described by `payloadTransferInfo`. For example, the `payloadTransferInfo` dictionary might have a `port` entry holding a TCP port the device is listening on for incoming connections.
 
 ```js
 {
@@ -114,7 +127,7 @@ Payloads are declared by the presence of the `payloadSize` and `payloadTransferI
 
 * `id`: [**`Number`**](#number) [🔒](#symbols)
 
-    ⚠️ Deprecated: Clients should still populate this field (eg: with a UNIX epoch timestamp) but never read it as it will be removed soon.
+    ⚠️ Deprecated: Clients should still populate this field (eg: with zero) but never read it as it will be removed soon.
 
 * `type`: [**`String`**](#string) [🔒](#symbols)
 
@@ -136,11 +149,15 @@ Payloads are declared by the presence of the `payloadSize` and `payloadTransferI
 
     A dictionary of properties necessary for clients to negotiate a transfer channel.
 
-#### `kdeconnect.identity`
+## Device Discovery
 
-The KDE Connect identity packet is used to identify devices and their capabilities.
+KDE Connect-enabled devices use different methods to discover each other before they can proceed to establish a connection and exchange packets. All the existing implementations support LAN discovery (for devices in the same network), while the Android and C++ implementations support Bluetooth as well. In the discovery phase, a device will send its device ID and protocol version to any other devices it can find and will establish a non-encrypted TCP connection with them.
 
-Each networking module may define additional fields necessary for clients to connect. For example, in the LAN protocol the identity packet is broadcast over UDP with a `tcpPort` field.
+For LAN discovery, devices listen for incoming connections on a TCP port (typically 1716) and announce their presence in the network in two ways: UDP broadcast and mDNS (Multicast DNS).
+
+### UDP discovery
+
+When KDE Connect connects to a new network or at boot, it will broadcast a UDP datagram on port 1716. The datagram contains a JSON packet with type `kdeconnect.identity` with the fields `deviceId`, `protocolVersion` and the `tcpPort` where it is listening for connections. When a packet of this type is received, it will try to establish a TCP connection with the sender IP at the port specified.
 
 ```js
 {
@@ -148,6 +165,65 @@ Each networking module may define additional fields necessary for clients to con
     "type": "kdeconnect.identity",
     "body": {
         "deviceId": "740bd4b9b4184ee497d6caf1da8151be",
+        "protocolVersion": 8,
+        "tcpPort": 1716
+    }
+}
+```
+
+### mDSN discovery
+
+Devices will advertise a service with type `_kdeconnect._udp` and their own device ID as name. In the TXT records, they will include the fields `id` (the device ID again) and `protocol` (its own protocol version, currently 8). At the same time, devices will start discovering devices with that service type. When a peer is found, a TCP connection can be established. Note that, for backwards compatibility with protocol version 7, most implementations don't establish a TCP connection and instead send a UDP packet to trigger the UDP discovery mechanism response.
+
+```js
+"740bd4b9b4184ee497d6caf1da8151be._kdeconnect._udp.local"
+```
+
+```js
+[
+    "id=740bd4b9b4184ee497d6caf1da8151be",
+    "protocol=8"
+]
+```
+
+## Device Connection
+
+In this phase, the devices upgrade the connection to TLS and exchange the remaining details about themselves (device name, device type and supported packet types).
+
+The following sequence of events happens right after the discovery phase, when Device A has discovered Device B and has established a (still unencrypted) TCP connection with it:
+- Device A sends a packet with type `kdeconnect.identity` to Device B with: `deviceId`, `protocolVersion`, `targetDeviceId`, and `targetProtocolVersion`. The first two are Device A's own ID and protocol version, while the second two refer to the discovered Device B.
+- Device B verifies that the target values match their own, or otherwise aborts.
+- Both ends upgrade the connection to TLS, Device B acting as the client and Device A acting as the server. If the devices have previously paired (see Device Pairing), they will only allow the connection if the certificate is use matches the one that was stored when the devices were paired (aka certificate pinning). If they aren't paired, any certificate will be accepted (alike to SSH's Trust-On-First-Use).
+- Once the connection is secured with TLS, both devices send a packet with type `kdeconnect.identity` including their own `deviceId`, `protocolVersion`, `deviceName`, `deviceType`, `incomingCapabilities`, and `outgoingCapabilities`. If the `deviceId` or the `protocolVersion` don't match those used earlier to determine if the device is paired or not, the connection must be aborted.
+
+Once this is done, each device has learnt about the other and can display it to the user by their name and an icon corresponding to the device type. Packets can now be exchanged between the two devices securely, although for unpaired devices all packets except pairing packets should be discarded.
+
+### Packets
+
+#### `kdeconnect.identity`
+
+The KDE Connect identity packet is used to identify devices and their capabilities.
+
+```js
+{
+    "id": 0,
+    "type": "kdeconnect.identity",
+    "body": {
+        "deviceId": "740bd4b9b4184ee497d6caf1da8151be",
+        "protocolVersion": 8,
+        "targetDeviceId": "abcdef1234567890abcdef1234567890",
+        "targetProtocolVersion": 8
+    }
+}
+```
+
+```js
+{
+    "id": 0,
+    "type": "kdeconnect.identity",
+    "body": {
+        "deviceId": "740bd4b9b4184ee497d6caf1da8151be",
+        "protocolVersion": 8,
         "deviceName": "FOSS Phone",
         "deviceType": "phone",
         "incomingCapabilities": [
@@ -157,8 +233,7 @@ Each networking module may define additional fields necessary for clients to con
         "outgoingCapabilities": [
             "kdeconnect.mock.echo",
             "kdeconnect.mock.transfer"
-        ],
-        "protocolVersion": 8
+        ]
     }
 }
 ```
@@ -169,23 +244,35 @@ Each networking module may define additional fields necessary for clients to con
 
     A unique ID for the device. Device IDs must be generated to be between 32 and 38 alphanumerical characters, and will be also set as the Common Name in the device TLS certificate. For backwards compatibility, however, implementations must accept (but not generate new) device IDs that also include hyphens (`-`) and/or underscores (`_`). A way to generate a valid device ID is getting a random UUIDv4 string and removing the hyphens (`-`), such as `740bd4b9b4184ee497d6caf1da8151be`.
 
-* `deviceName`: [**`String`**](#string) [🔒](#symbols)
+* `deviceName`: [**`String`**](#string)
 
     **`pattern`**: `/^[^"',;:.!?()\[\]<>]{1,32}$/`
 
     A human-readable label for the device. Must be 1-32 characters in length. Shouldn't contain any of the following punctuation marks `"',;:.!?()[]<>` If a name is received with invalid characters, it should be sanitized by removing the invalid characters before being used. When displayed to the user for pairing or other privileged interactions, it should always be displayed within quotes.
 
-* `deviceType`: [**`String`**](#string) [🔒](#symbols)
+* `targetDeviceId`: [**`String`**](#string)
+
+    **`pattern`**: `/^[a-zA-Z0-9_-]{32,38}$/`
+
+    The device ID of the device we discovered and are connecting to.
+
+* `targetProtocolVersion`: [**`Number`**](#number)
+
+    **`enum`**: `7`|`8`
+
+    The protocol version of the device we discovered and are connecting to.
+
+* `deviceType`: [**`String`**](#string)
 
     **`enum`**: `'desktop'`|`'laptop'`|`'phone'`|`'tablet'`|`'tv'`
 
     A device type string. Since the `incomingCapabilities` and `outgoingCapabilities` fields describe the functionality of a device, the `deviceType` field is typically only used to select an icon.
 
-* `incomingCapabilities`: [**`Array`**](#array) of [**`String`**](#string) [🔒](#symbols)
+* `incomingCapabilities`: [**`Array`**](#array) of [**`String`**](#string)
 
     A list of packet types the device can consume. Note that this is only an indication a device can consume a packet type, not that it will.
 
-* `outgoingCapabilities`: [**`Array`**](#array) of [**`String`**](#string) [🔒](#symbols)
+* `outgoingCapabilities`: [**`Array`**](#array) of [**`String`**](#string)
 
     A list of packet types the device can provide. Note that this is only an indication a device can provide a packet type, not that it will.
 
@@ -195,30 +282,31 @@ Each networking module may define additional fields necessary for clients to con
 
     The latest protocol version implemented by the device. The current version of the protocol described in this document is `8`.
 
+## Device Pairing
+
+Once two devices are connected but not previously paired, the user can initiate the pairing of the two from either device. When pairing is initiated, a packet with type `kdeconnect.pair` is sent from the initiating device to the other device. The receiving device will then prompt the user to accept or reject the pairing request. If accepted, both devices will store each other's TLS certificates for future connections.
+
+The packet exchange during pairing process is as follows:
+- Device A sends a packet with type `kdeconnect.pair` to Device B with the field `pair` set to `true` and `timestamp` sent to the current time in seconds since Epoch.
+- Device B will discard the packet if the timestamp is off by more than 30 minutes. Otherwise, it will prompt the user to accept or reject the pairing request. If the user rejects, it will send a packet with type `kdeconnect.pair` with the field `pair` set to `false`. If the user accepts, it will send a packet with type `kdeconnect.pair` with the field `pair` set to `true`.
+
+As an additional security measure, the pairing prompt that is shown to the user may include a short authentication string calculated by getting the first 8 characters of the hexadecimal representation of the SHA256 hash of the concatenation of 3 elements: both devices' TLS public keys taken in alphabetical order and the timestamp used in the pairing as a string.
+
+A paired device can send a packet with `pair` set to `false` to unpair an already paired device.
+
+### Packets
+
 #### `kdeconnect.pair`
 
-The KDE Connect pair packet is used to negotiate pairing between devices. Devices must be paired before sending any other packets and should reject any incoming packets from unpaired devices.
-
-A device sends a packet with `pair` set to `true` to request pairing. A response is expected with `pair` set to `true` to accept or `false` to `reject`. By convention the request times out after 30 seconds.
-
-A device sends a packet with `pair` set to `false` to unpair or reject a pairing request. No response is expected.
+The KDE Connect pair packet is used to negotiate pairing between devices.
 
 ```js
 {
     "id": 0,
     "type": "kdeconnect.pair",
     "body": {
-        "pair": true
-    }
-}
-```
-
-```js
-{
-    "id": 0,
-    "type": "kdeconnect.pair",
-    "body": {
-        "pair": false
+        "pair": true,
+        "timestamp": 642247200
     }
 }
 ```
@@ -583,7 +671,7 @@ This packet is a stylus (or finger) event. `kdeconnect.digitizer` packets must n
 
 ## FindMyPhone Plugin
 
-The FindMyPhone plugin allows requesting a device to announce it's location, usually by playing a sound like a traditional cordless phone.
+The FindMyPhone plugin allows requesting a device to announce its location, usually by playing a sound like a traditional cordless phone.
 
 ### References
 

@@ -1,0 +1,12 @@
+{
+    "$schema": "http://json-schema.org/schema#",
+    "title": "mDSN discovery",
+    "description": "Devices will advertise a service with type `_kdeconnect._udp` and their own device ID as name. In the TXT records, they will include the fields `id` (the device ID again) and `protocol` (its own protocol version, currently 8). At the same time, devices will start discovering devices with that service type. When a peer is found, a TCP connection can be established. Note that, for backwards compatibility with protocol version 7, most implementations don't establish a TCP connection and instead send a UDP packet to trigger the UDP discovery mechanism response.",
+    "examples": [
+        "740bd4b9b4184ee497d6caf1da8151be._kdeconnect._udp.local",
+        [
+            "id=740bd4b9b4184ee497d6caf1da8151be",
+            "protocol=8"
+        ]
+    ]
+}
