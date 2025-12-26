@@ -126,8 +126,6 @@ Payloads are declared by the presence of the `payloadSize` and `payloadTransferI
 
     A dictionary of parameters appropriate for the packet `type`.
 
-This packet has no body fields.
-
 * `payloadSize`: [**`Number`**](#number)
 
     **`range`**: Unrestricted

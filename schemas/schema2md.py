@@ -275,7 +275,7 @@ def write_packet(fobj: TextIO, packet: dict, depth: int = 1) -> None:
 
                 for subname, subschema in pattern_properties.items():
                     write_schema(fobj, schema, subname, subschema)
-            else:
+            elif title != "kdeconnect.*":
                 fobj.write('This packet has no body fields.\n\n')
 
 
