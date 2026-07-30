@@ -1,0 +1,101 @@
+{
+    "$schema": "http://json-schema.org/schema#",
+    "title": "kdeconnect.runcommand.output",
+    "description": "This packet contains updates about a command executed via `kdeconnect.runcommand.request`: when it starts, its output, and when it finishes. Every packet is tagged with the `id` of the command it refers to, since multiple commands may be running at the same time.",
+    "examples": [
+        {
+            "id": 0,
+            "type": "kdeconnect.runcommand.output",
+            "body": {
+                "commandStarted": true,
+                "command": "ls -la",
+                "id": 0
+            }
+        },
+        {
+            "id": 0,
+            "type": "kdeconnect.runcommand.output",
+            "body": {
+                "commandOutput": true,
+                "stdout": ["file1.txt", "file2.txt"],
+                "stderr": [],
+                "id": 0
+            }
+        },
+        {
+            "id": 0,
+            "type": "kdeconnect.runcommand.output",
+            "body": {
+                "commandFinished": true,
+                "success": true,
+                "exitCode": 0,
+                "id": 0
+            }
+        }
+    ],
+    "type": "object",
+    "required": [
+        "id",
+        "type",
+        "body"
+    ],
+    "properties": {
+        "id": {
+            "type": "number"
+        },
+        "type": {
+            "type": "string",
+            "enum": ["kdeconnect.runcommand.output"]
+        },
+        "body": {
+            "type": "object",
+            "required": [
+                "id"
+            ],
+            "properties": {
+                "id": {
+                    "type": "number",
+                    "description": "Identifies the command this packet refers to. It is chosen by the sender when the command is started (`commandStarted`) and reused in every subsequent `kdeconnect.runcommand.output` packet about that same command (`commandOutput` and `commandFinished`), so several commands can be tracked concurrently."
+                },
+                "commandStarted": {
+                    "type": "boolean",
+                    "description": "Present and `true` when this packet announces that a command has just started running. Sent alongside `command` and `id`."
+                },
+                "command": {
+                    "type": "string",
+                    "description": "The command line that was started. Only present alongside `commandStarted`."
+                },
+                "commandOutput": {
+                    "type": "boolean",
+                    "description": "Present and `true` when this packet carries output produced by the running command. Sent alongside `stdout`, `stderr` and `id`."
+                },
+                "stdout": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "Lines of standard output produced by the command since the last `commandOutput` packet for this `id`. Only present alongside `commandOutput`."
+                },
+                "stderr": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "Lines of standard error produced by the command since the last `commandOutput` packet for this `id`. Only present alongside `commandOutput`."
+                },
+                "commandFinished": {
+                    "type": "boolean",
+                    "description": "Present and `true` when this packet announces that a command has finished running. Sent alongside `success`, `exitCode` and `id`."
+                },
+                "success": {
+                    "type": "boolean",
+                    "description": "Whether the command exited successfully. Only present alongside `commandFinished`."
+                },
+                "exitCode": {
+                    "type": "number",
+                    "description": "The exit code the command finished with. Only present alongside `commandFinished`. Prefer `success` if only checking if the command exited successfully."
+                }
+            }
+        }
+    }
+}

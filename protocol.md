@@ -57,6 +57,7 @@ We make an effort to keep this document useful, accurate and up-to-date, althoug
     * [`kdeconnect.presenter`](#kdeconnectpresenter)
 * [RunCommand Plugin](#runcommand-plugin)
     * [`kdeconnect.runcommand`](#kdeconnectruncommand)
+    * [`kdeconnect.runcommand.output`](#kdeconnectruncommandoutput)
     * [`kdeconnect.runcommand.request`](#kdeconnectruncommandrequest)
 * [SFTP Plugin](#sftp-plugin)
     * [`kdeconnect.sftp`](#kdeconnectsftp)
@@ -325,8 +326,8 @@ The Battery plugin allows a device to expose the status of its battery.
 
 ### References
 
-* <https://invent.kde.org/network/kdeconnect-kde/tree/master/plugins/battery>
-* <https://invent.kde.org/network/kdeconnect-android/tree/master/src/org/kde/kdeconnect/Plugins/BatteryPlugin>
+* <https://invent.kde.org/network/kdeconnect-kde/-/tree/master/plugins/battery>
+* <https://invent.kde.org/network/kdeconnect-android/-/tree/master/src/main/java/org/kde/kdeconnect/plugins/battery>
 * <https://invent.kde.org/network/kdeconnect-ios/tree/master/KDE%20Connect/KDE%20Connect/Plugins%20and%20Plugin%20Views/Battery>
 
 ### Packets
@@ -387,8 +388,8 @@ The Clipboard plugin allows syncing clipboard text content between devices.
 
 ### References
 
-* <https://invent.kde.org/network/kdeconnect-kde/tree/master/plugins/clipboard>
-* <https://invent.kde.org/network/kdeconnect-android/tree/master/src/org/kde/kdeconnect/Plugins/ClipboardPlugin>
+* <https://invent.kde.org/network/kdeconnect-kde/-/tree/master/plugins/clipboard>
+* <https://invent.kde.org/network/kdeconnect-android/-/tree/master/src/main/java/org/kde/kdeconnect/plugins/clipboard>
 * <https://invent.kde.org/network/kdeconnect-ios/tree/master/KDE%20Connect/KDE%20Connect/Plugins%20and%20Plugin%20Views/Clipboard>
 
 ### Packets
@@ -440,8 +441,8 @@ The Connectivity Report plugin allows a device to expose the status of its conne
 
 ### References
 
-* <https://invent.kde.org/network/kdeconnect-kde/tree/master/plugins/connectivity_report>
-* <https://invent.kde.org/network/kdeconnect-android/tree/master/src/org/kde/kdeconnect/Plugins/ConnectivityReportPlugin>
+* <https://invent.kde.org/network/kdeconnect-kde/-/tree/master/plugins/connectivity_report>
+* <https://invent.kde.org/network/kdeconnect-android/-/tree/master/src/main/java/org/kde/kdeconnect/plugins/connectivityreport>
 
 ### Packets
 
@@ -508,8 +509,8 @@ The Contacts plugin allows devices to share contacts in vCard format.
 
 ### References
 
-* <https://invent.kde.org/network/kdeconnect-kde/tree/master/plugins/contacts>
-* <https://invent.kde.org/network/kdeconnect-android/tree/master/src/org/kde/kdeconnect/Plugins/ContactsPlugin>
+* <https://invent.kde.org/network/kdeconnect-kde/-/tree/master/plugins/contacts>
+* <https://invent.kde.org/network/kdeconnect-android/-/tree/master/src/main/java/org/kde/kdeconnect/plugins/contacts>
 
 ### Packets
 
@@ -600,8 +601,8 @@ This plugin allows users to use their devices as pressure sensitive drawing tabl
 
 ### References
 
-* <https://invent.kde.org/network/kdeconnect-kde/tree/master/plugins/digitizer>
-* <https://invent.kde.org/network/kdeconnect-android/tree/master/src/org/kde/kdeconnect/Plugins/DigitizerPlugin>
+* <https://invent.kde.org/network/kdeconnect-kde/-/tree/master/plugins/digitizer>
+* <https://invent.kde.org/network/kdeconnect-android/-/tree/master/src/main/java/org/kde/kdeconnect/plugins/digitizer>
 
 ### Packets
 
@@ -675,10 +676,10 @@ The FindMyPhone plugin allows requesting a device to announce its location, usua
 
 ### References
 
-* <https://invent.kde.org/network/kdeconnect-kde/tree/master/plugins/findmyphone>
-* <https://invent.kde.org/network/kdeconnect-kde/tree/master/plugins/findthisdevice>
-* <https://invent.kde.org/network/kdeconnect-android/tree/master/src/org/kde/kdeconnect/Plugins/FindMyPhonePlugin>
-* <https://invent.kde.org/network/kdeconnect-android/tree/master/src/org/kde/kdeconnect/Plugins/FindRemoteDevicePlugin>
+* <https://invent.kde.org/network/kdeconnect-kde/-/tree/master/plugins/findmyphone>
+* <https://invent.kde.org/network/kdeconnect-kde/-/tree/master/plugins/findthisdevice>
+* <https://invent.kde.org/network/kdeconnect-android/-/tree/master/src/main/java/org/kde/kdeconnect/plugins/findmyphone>
+* <https://invent.kde.org/network/kdeconnect-android/-/tree/master/src/main/java/org/kde/kdeconnect/plugins/findremotedevice>
 * <https://invent.kde.org/network/kdeconnect-ios/tree/master/KDE%20Connect/KDE%20Connect/Plugins%20and%20Plugin%20Views/FindMyPhone>
 
 ### Packets
@@ -703,7 +704,7 @@ The Lock plugin allows requesting a device to lock or unlock.
 
 ### References
 
-* <https://invent.kde.org/network/kdeconnect-kde/tree/master/plugins/lockdevice>
+* <https://invent.kde.org/network/kdeconnect-kde/-/tree/master/plugins/lockdevice>
 
 ### Packets
 
@@ -765,12 +766,12 @@ The MousePad plugin allows remote control of the pointer and keyboard.
 
 ### References
 
-* <https://invent.kde.org/network/kdeconnect-kde/tree/master/plugins/mousepad>
-* <https://invent.kde.org/network/kdeconnect-kde/tree/master/plugins/remotecontrol>
-* <https://invent.kde.org/network/kdeconnect-kde/tree/master/plugins/remotekeyboard>
-* <https://invent.kde.org/network/kdeconnect-android/tree/master/src/org/kde/kdeconnect/Plugins/MousePadPlugin>
-* <https://invent.kde.org/network/kdeconnect-android/tree/master/src/org/kde/kdeconnect/Plugins/MouseReceiverPlugin>
-* <https://invent.kde.org/network/kdeconnect-android/tree/master/src/org/kde/kdeconnect/Plugins/RemoteKeyboardPlugin>
+* <https://invent.kde.org/network/kdeconnect-kde/-/tree/master/plugins/mousepad>
+* <https://invent.kde.org/network/kdeconnect-kde/-/tree/master/plugins/remotecontrol>
+* <https://invent.kde.org/network/kdeconnect-kde/-/tree/master/plugins/remotekeyboard>
+* <https://invent.kde.org/network/kdeconnect-android/-/tree/master/src/main/java/org/kde/kdeconnect/plugins/mousepad>
+* <https://invent.kde.org/network/kdeconnect-android/-/tree/master/src/main/java/org/kde/kdeconnect/plugins/mousereceiver>
+* <https://invent.kde.org/network/kdeconnect-android/-/tree/master/src/main/java/org/kde/kdeconnect/plugins/remotekeyboard>
 * <https://invent.kde.org/network/kdeconnect-ios/tree/master/KDE%20Connect/KDE%20Connect/Plugins%20and%20Plugin%20Views/RemoteInput>
 
 ### Packets
@@ -972,10 +973,10 @@ The MPRIS plugin allows sharing control of media players.
 
 ### References
 
-* <https://invent.kde.org/network/kdeconnect-kde/tree/master/plugins/mpriscontrol>
-* <https://invent.kde.org/network/kdeconnect-kde/tree/master/plugins/mprisremote>
-* <https://invent.kde.org/network/kdeconnect-android/tree/master/src/org/kde/kdeconnect/Plugins/MprisPlugin>
-* <https://invent.kde.org/network/kdeconnect-android/tree/master/src/org/kde/kdeconnect/Plugins/MprisReceiverPlugin>
+* <https://invent.kde.org/network/kdeconnect-kde/-/tree/master/plugins/mpriscontrol>
+* <https://invent.kde.org/network/kdeconnect-kde/-/tree/master/plugins/mprisremote>
+* <https://invent.kde.org/network/kdeconnect-android/-/tree/master/src/main/java/org/kde/kdeconnect/plugins/mpris>
+* <https://invent.kde.org/network/kdeconnect-android/-/tree/master/src/main/java/org/kde/kdeconnect/plugins/mprisreceiver>
 
 ### Packets
 
@@ -1228,10 +1229,10 @@ The Notification plugin syncs notifications between devices.
 
 ### References
 
-* <https://invent.kde.org/network/kdeconnect-kde/tree/master/plugins/notifications>
-* <https://invent.kde.org/network/kdeconnect-kde/tree/master/plugins/sendnotifications>
-* <https://invent.kde.org/network/kdeconnect-android/tree/master/src/org/kde/kdeconnect/Plugins/NotificationsPlugin>
-* <https://invent.kde.org/network/kdeconnect-android/tree/master/src/org/kde/kdeconnect/Plugins/ReceiveNotificationsPlugin>
+* <https://invent.kde.org/network/kdeconnect-kde/-/tree/master/plugins/notifications>
+* <https://invent.kde.org/network/kdeconnect-kde/-/tree/master/plugins/sendnotifications>
+* <https://invent.kde.org/network/kdeconnect-android/-/tree/master/src/main/java/org/kde/kdeconnect/plugins/notifications>
+* <https://invent.kde.org/network/kdeconnect-android/-/tree/master/src/main/java/org/kde/kdeconnect/plugins/receivenotifications>
 
 ### Packets
 
@@ -1464,8 +1465,8 @@ The Ping plugin allows sending and receiving simple 'pings', with an optional me
 
 ### References
 
-* <https://invent.kde.org/network/kdeconnect-kde/tree/master/plugins/ping>
-* <https://invent.kde.org/network/kdeconnect-android/tree/master/src/org/kde/kdeconnect/Plugins/PingPlugin>
+* <https://invent.kde.org/network/kdeconnect-kde/-/tree/master/plugins/ping>
+* <https://invent.kde.org/network/kdeconnect-android/-/tree/master/src/main/java/org/kde/kdeconnect/plugins/ping>
 * <https://invent.kde.org/network/kdeconnect-ios/tree/master/KDE%20Connect/KDE%20Connect/Plugins%20and%20Plugin%20Views/Ping>
 
 ### Packets
@@ -1502,8 +1503,8 @@ The Presenter plugin allows sending and receiving simple 'pings', with an option
 
 ### References
 
-* <https://invent.kde.org/network/kdeconnect-kde/tree/master/plugins/presenter>
-* <https://invent.kde.org/network/kdeconnect-android/tree/master/src/org/kde/kdeconnect/Plugins/PresenterPlugin>
+* <https://invent.kde.org/network/kdeconnect-kde/-/tree/master/plugins/presenter>
+* <https://invent.kde.org/network/kdeconnect-android/-/tree/master/src/main/java/org/kde/kdeconnect/plugins/presenter>
 * <https://invent.kde.org/network/kdeconnect-ios/tree/master/KDE%20Connect/KDE%20Connect/Plugins%20and%20Plugin%20Views/Presenter>
 
 ### Packets
@@ -1551,9 +1552,9 @@ The RunCommand plugin allows defining and executing remote commands.
 
 ### References
 
-* <https://invent.kde.org/network/kdeconnect-kde/tree/master/plugins/remotecommands>
-* <https://invent.kde.org/network/kdeconnect-kde/tree/master/plugins/runcommand>
-* <https://invent.kde.org/network/kdeconnect-android/tree/master/src/org/kde/kdeconnect/Plugins/RunCommandPlugin>
+* <https://invent.kde.org/network/kdeconnect-kde/-/tree/master/plugins/remotecommands>
+* <https://invent.kde.org/network/kdeconnect-kde/-/tree/master/plugins/runcommand>
+* <https://invent.kde.org/network/kdeconnect-android/-/tree/master/src/main/java/org/kde/kdeconnect/plugins/runcommand>
 * <https://invent.kde.org/network/kdeconnect-ios/tree/master/KDE%20Connect/KDE%20Connect/Plugins%20and%20Plugin%20Views/RunCommand>
 
 ### Packets
@@ -1576,9 +1577,90 @@ This packet is a list of available commands.
 
     A serialized dictionary of commands that the device offers. The key is sent in a `kdeconnect.runcommand.request` packet to execute its corresponding command. Each value has a `name` field and a `command` field.
 
+#### `kdeconnect.runcommand.output`
+
+This packet contains updates about a command executed via `kdeconnect.runcommand.request`: when it starts, its output, and when it finishes. Every packet is tagged with the `id` of the command it refers to, since multiple commands may be running at the same time.
+
+```js
+{
+    "id": 0,
+    "type": "kdeconnect.runcommand.output",
+    "body": {
+        "commandStarted": true,
+        "command": "ls -la",
+        "id": 0
+    }
+}
+```
+
+```js
+{
+    "id": 0,
+    "type": "kdeconnect.runcommand.output",
+    "body": {
+        "commandOutput": true,
+        "stdout": [
+            "file1.txt",
+            "file2.txt"
+        ],
+        "stderr": [],
+        "id": 0
+    }
+}
+```
+
+```js
+{
+    "id": 0,
+    "type": "kdeconnect.runcommand.output",
+    "body": {
+        "commandFinished": true,
+        "success": true,
+        "exitCode": 0,
+        "id": 0
+    }
+}
+```
+
+* `id`: [**`Number`**](#number) [🔒](#symbols)
+
+    Identifies the command this packet refers to. It is chosen by the sender when the command is started (`commandStarted`) and reused in every subsequent `kdeconnect.runcommand.output` packet about that same command (`commandOutput` and `commandFinished`), so several commands can be tracked concurrently.
+
+* `commandStarted`: [**`Boolean`**](#boolean)
+
+    Present and `true` when this packet announces that a command has just started running. Sent alongside `command` and `id`.
+
+* `command`: [**`String`**](#string)
+
+    The command line that was started. Only present alongside `commandStarted`.
+
+* `commandOutput`: [**`Boolean`**](#boolean)
+
+    Present and `true` when this packet carries output produced by the running command. Sent alongside `stdout`, `stderr` and `id`.
+
+* `stdout`: [**`Array`**](#array) of [**`String`**](#string)
+
+    Lines of standard output produced by the command since the last `commandOutput` packet for this `id`. Only present alongside `commandOutput`.
+
+* `stderr`: [**`Array`**](#array) of [**`String`**](#string)
+
+    Lines of standard error produced by the command since the last `commandOutput` packet for this `id`. Only present alongside `commandOutput`.
+
+* `commandFinished`: [**`Boolean`**](#boolean)
+
+    Present and `true` when this packet announces that a command has finished running. Sent alongside `success`, `exitCode` and `id`.
+
+* `success`: [**`Boolean`**](#boolean)
+
+    Whether the command exited successfully. Only present alongside `commandFinished`.
+
+* `exitCode`: [**`Number`**](#number)
+
+    The exit code the command finished with. Only present alongside `commandFinished`. Prefer `success` if only checking if the command exited successfully.
+
 #### `kdeconnect.runcommand.request`
 
-This packet is a runcommand status update.
+This packet indicates a command to run.
 
 ```js
 {
@@ -1606,7 +1688,7 @@ This packet is a runcommand status update.
 
 * `requestCommandList`: [**`Boolean`**](#boolean)
 
-    If the packet body contains this field it is a request for the command list.
+    If the packet body contains this field it is a request for the command list. ⚠️ Deprecated: The packet list should always sent when it changes, so there's no need to request it.
 
 ## SFTP Plugin
 
@@ -1614,8 +1696,8 @@ The SFTP plugin enables secure file sharing with SFTP.
 
 ### References
 
-* <https://invent.kde.org/network/kdeconnect-kde/tree/master/plugins/sftp>
-* <https://invent.kde.org/network/kdeconnect-android/tree/master/src/org/kde/kdeconnect/Plugins/SftpPlugin>
+* <https://invent.kde.org/network/kdeconnect-kde/-/tree/master/plugins/sftp>
+* <https://invent.kde.org/network/kdeconnect-android/-/tree/master/src/main/java/org/kde/kdeconnect/plugins/sftp>
 
 ### Packets
 
@@ -1705,8 +1787,8 @@ The Share plugin allows sharing files, text content and URLs.
 
 ### References
 
-* <https://invent.kde.org/network/kdeconnect-kde/tree/master/plugins/share>
-* <https://invent.kde.org/network/kdeconnect-android/tree/master/src/org/kde/kdeconnect/Plugins/SharePlugin>
+* <https://invent.kde.org/network/kdeconnect-kde/-/tree/master/plugins/share>
+* <https://invent.kde.org/network/kdeconnect-android/-/tree/master/src/main/java/org/kde/kdeconnect/plugins/share>
 * <https://invent.kde.org/network/kdeconnect-ios/tree/master/KDE%20Connect/KDE%20Connect/Plugins%20and%20Plugin%20Views/Share>
 
 ### Packets
@@ -1821,8 +1903,8 @@ The SMS plugin allows sending and receiving SMS/MMS messages.
 
 ### References
 
-* <https://invent.kde.org/network/kdeconnect-kde/tree/master/plugins/sms>
-* <https://invent.kde.org/network/kdeconnect-android/tree/master/src/org/kde/kdeconnect/Plugins/SMSPlugin>
+* <https://invent.kde.org/network/kdeconnect-kde/-/tree/master/plugins/sms>
+* <https://invent.kde.org/network/kdeconnect-android/-/tree/master/src/main/java/org/kde/kdeconnect/plugins/sms>
 * <https://invent.kde.org/network/kdeconnect-android/blob/master/src/org/kde/kdeconnect/Helpers/SMSHelper.java>
 
 ### Packets
@@ -2154,9 +2236,9 @@ The SystemVolume plugin allows sharing volume controls between devices.
 
 ### References
 
-* <https://invent.kde.org/network/kdeconnect-kde/tree/master/plugins/remotesystemvolume>
-* <https://invent.kde.org/network/kdeconnect-kde/tree/master/plugins/systemvolume>
-* <https://invent.kde.org/network/kdeconnect-android/tree/master/src/org/kde/kdeconnect/Plugins/SystemVolumePlugin>
+* <https://invent.kde.org/network/kdeconnect-kde/-/tree/master/plugins/remotesystemvolume>
+* <https://invent.kde.org/network/kdeconnect-kde/-/tree/master/plugins/systemvolume>
+* <https://invent.kde.org/network/kdeconnect-android/-/tree/master/src/main/java/org/kde/kdeconnect/plugins/systemvolume>
 
 ### Packets
 
@@ -2299,8 +2381,8 @@ The Telephony plugin allows notification of events such as incoming or missed ca
 
 ### References
 
-* <https://invent.kde.org/network/kdeconnect-kde/tree/master/plugins/telephony>
-* <https://invent.kde.org/network/kdeconnect-android/tree/master/src/org/kde/kdeconnect/Plugins/TelephonyPlugin>
+* <https://invent.kde.org/network/kdeconnect-kde/-/tree/master/plugins/telephony>
+* <https://invent.kde.org/network/kdeconnect-android/-/tree/master/src/main/java/org/kde/kdeconnect/plugins/telephony>
 
 ### Packets
 

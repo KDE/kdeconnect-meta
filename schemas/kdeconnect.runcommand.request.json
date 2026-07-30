@@ -1,7 +1,7 @@
 {
     "$schema": "http://json-schema.org/schema#",
     "title": "kdeconnect.runcommand.request",
-    "description": "This packet is a runcommand status update.",
+    "description": "This packet indicates a command to run.",
     "examples": [
         {
             "id": 0,
@@ -41,7 +41,7 @@
                 },
                 "requestCommandList": {
                     "type": "boolean",
-                    "description": "If the packet body contains this field it is a request for the command list."
+                    "description": "If the packet body contains this field it is a request for the command list. ⚠️ Deprecated: The packet list should always sent when it changes, so there's no need to request it."
                 }
             }
         }

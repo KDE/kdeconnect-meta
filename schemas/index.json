@@ -204,6 +204,7 @@
             "description": "The RunCommand plugin allows defining and executing remote commands.",
             "packets": [
                 "kdeconnect.runcommand",
+                "kdeconnect.runcommand.output",
                 "kdeconnect.runcommand.request"
             ],
             "references": [
