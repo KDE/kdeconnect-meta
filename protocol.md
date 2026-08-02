@@ -797,9 +797,44 @@ This packet is an echo for a `kdeconnect.mousepad.request` packet.
 
 * `specialKey`: [**`Number`**](#number)
 
-    **`range`**: `0–32`
+    **`range`**: `1–32`
 
-    A request to press-release a single non-printable character, usually a control character or function key such as Backspace or F10.
+    A request to press-release a single non-printable character, usually a control character or func`tion key such as Backspace or F10. The mapping is as follows:
+
+```
+BackSpace // 1
+Tab // 2
+Linefeed // 3
+Left // 4
+Up // 5
+Right // 6
+Down // 7
+Page_Up // 8
+Page_Down // 9
+Home // 10
+End // 11
+Return // 12
+Delete // 13
+Escape // 14
+Sys_Req // 15
+Scroll_Lock // 16
+Control_L // 17
+Alt_L // 18
+Shift_L // 19
+Super_L // 20
+F1 // 21
+F2 // 22
+F3 // 23
+F4 // 24
+F5 // 25
+F6 // 26
+F7 // 27
+F8 // 28
+F9 // 29
+F10 // 30
+F11 // 31
+F12 // 32
+```
 
 * `alt`: [**`Boolean`**](#boolean)
 

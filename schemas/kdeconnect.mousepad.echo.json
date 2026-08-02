@@ -39,9 +39,9 @@
                 },
                 "specialKey": {
                     "type": "number",
-                    "minimum": 0,
+                    "minimum": 1,
                     "maximum": 32,
-                    "description": "A request to press-release a single non-printable character, usually a control character or function key such as Backspace or F10."
+                    "description": "A request to press-release a single non-printable character, usually a control character or func`tion key such as Backspace or F10. The mapping is as follows:\n\n```\nBackSpace // 1\nTab // 2\nLinefeed // 3\nLeft // 4\nUp // 5\nRight // 6\nDown // 7\nPage_Up // 8\nPage_Down // 9\nHome // 10\nEnd // 11\nReturn // 12\nDelete // 13\nEscape // 14\nSys_Req // 15\nScroll_Lock // 16\nControl_L // 17\nAlt_L // 18\nShift_L // 19\nSuper_L // 20\nF1 // 21\nF2 // 22\nF3 // 23\nF4 // 24\nF5 // 25\nF6 // 26\nF7 // 27\nF8 // 28\nF9 // 29\nF10 // 30\nF11 // 31\nF12 // 32\n```"
                 },
                 "alt": {
                     "type": "boolean",
