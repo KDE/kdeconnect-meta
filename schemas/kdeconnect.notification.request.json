@@ -41,7 +41,7 @@
                 },
                 "request": {
                     "type": "boolean",
-                    "description": "Indicates this is a request for the notifications."
+                    "description": "⚠️ Deprecated: The initial notifications are synced when the devices are connected, and later updates are incremental. There's no need to request all notifications."
                 }
             }
         }

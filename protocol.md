@@ -1492,7 +1492,7 @@ This packet is a request for notifications.
 
 * `request`: [**`Boolean`**](#boolean)
 
-    Indicates this is a request for the notifications.
+    ⚠️ Deprecated: The initial notifications are synced when the devices are connected, and later updates are incremental. There's no need to request all notifications.
 
 ## Ping Plugin
 
