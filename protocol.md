@@ -460,7 +460,7 @@ This packet is a connectivity report.
                 "networkType": "4G",
                 "signalStrength": 3,
                 "name": "Vodafone",
-                "slot": 0
+                "slot": 1
             },
             "17": {
                 "networkType": "HSPA",
@@ -497,7 +497,7 @@ This packet is a connectivity report.
 
         * `slot`: [**`Number`**](#number)
 
-            The number of the SIM slot, from 0 onwards
+            The number of the SIM slot, from 1 onwards
 
 #### `kdeconnect.connectivity_report.request`
 
