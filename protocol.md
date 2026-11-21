@@ -1040,11 +1040,15 @@ This packet is used for two things: if it contains a `playerList` field, it is u
         "player": "Test Player",
         "canPause": true,
         "canPlay": true,
+        "canStop": true,
         "canGoNext": true,
         "canGoPrevious": false,
+        "canFastForward": true,
+        "canRewind": true,
         "canSeek": true,
         "isPlaying": true,
         "pos": 0,
+        "rate": 1,
         "albumArtUrl": "file:///path/to/image.png",
         "nowPlaying": "Unknown",
         "artist": "Test Artist",
@@ -1088,6 +1092,10 @@ This packet is used for two things: if it contains a `playerList` field, it is u
 
     Can play.
 
+* `canStop`: [**`Boolean`**](#boolean)
+
+    Can stop.
+
 * `canGoNext`: [**`Boolean`**](#boolean)
 
     Can go next.
@@ -1095,6 +1103,14 @@ This packet is used for two things: if it contains a `playerList` field, it is u
 * `canGoPrevious`: [**`Boolean`**](#boolean)
 
     Can go previous.
+
+* `canFastForward`: [**`Boolean`**](#boolean)
+
+    Can fast forward.
+
+* `canRewind`: [**`Boolean`**](#boolean)
+
+    Can rewind.
 
 * `canSeek`: [**`Boolean`**](#boolean)
 
@@ -1119,6 +1135,10 @@ This packet is used for two things: if it contains a `playerList` field, it is u
     **`range`**: Unrestricted
 
     Current track position (ms).
+
+* `rate`: [**`Number`**](#number)
+
+    Current playback speed multiplier (1 is normal speed).
 
 * `albumArtUrl`: [**`String`**](#string)
 

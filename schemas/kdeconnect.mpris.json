@@ -20,11 +20,15 @@
                 "player": "Test Player",
                 "canPause": true,
                 "canPlay": true,
+                "canStop": true,
                 "canGoNext": true,
                 "canGoPrevious": false,
+                "canFastForward": true,
+                "canRewind": true,
                 "canSeek": true,
                 "isPlaying": true,
                 "pos": 0,
+                "rate": 1,
                 "albumArtUrl": "file:///path/to/image.png",
                 "nowPlaying": "Unknown",
                 "artist": "Test Artist",
@@ -84,6 +88,10 @@
                     "type": "boolean",
                     "description": "Can play."
                 },
+                "canStop": {
+                    "type": "boolean",
+                    "description": "Can stop."
+                },
                 "canGoNext": {
                     "type": "boolean",
                     "description": "Can go next."
@@ -91,6 +99,14 @@
                 "canGoPrevious": {
                     "type": "boolean",
                     "description": "Can go previous."
+                },
+                "canFastForward": {
+                    "type": "boolean",
+                    "description": "Can fast forward."
+                },
+                "canRewind": {
+                    "type": "boolean",
+                    "description": "Can rewind."
                 },
                 "canSeek": {
                     "type": "boolean",
@@ -117,6 +133,10 @@
                     "type": "number",
                     "minimum": 0,
                     "description": "Current track position (ms)."
+                },
+                "rate": {
+                    "type": "number",
+                    "description": "Current playback speed multiplier (1 is normal speed)."
                 },
                 "albumArtUrl": {
                     "type": "string",
