@@ -458,7 +458,9 @@ This packet is a connectivity report.
         "signalStrengths": {
             "6": {
                 "networkType": "4G",
-                "signalStrength": 3
+                "signalStrength": 3,
+                "name": "Vodafone",
+                "slot": 0
             },
             "17": {
                 "networkType": "HSPA",
@@ -488,6 +490,14 @@ This packet is a connectivity report.
             **`range`**: `0–4`
 
             The signal strength. Values `0` through `4` describe the coarse strength of the signal.
+
+        * `name`: [**`String`**](#string)
+
+            The name of the SIM, if available
+
+        * `slot`: [**`Number`**](#number)
+
+            The number of the SIM slot, from 0 onwards
 
 #### `kdeconnect.connectivity_report.request`
 

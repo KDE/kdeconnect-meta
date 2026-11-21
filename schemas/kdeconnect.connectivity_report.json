@@ -10,7 +10,9 @@
                 "signalStrengths": {
                     "6": {
                         "networkType": "4G",
-                        "signalStrength": 3
+                        "signalStrength": 3,
+                        "name": "Vodafone",
+                        "slot": 1
                     },
                     "17": {
                         "networkType": "HSPA",
@@ -63,6 +65,14 @@
                                     "description": "The signal strength. Values `0` through `4` describe the coarse strength of the signal.",
                                     "minimum": 0,
                                     "maximum": 4
+                                },
+                                "name": {
+                                    "type": "string",
+                                    "description": "The name of the SIM, if available"
+                                },
+                                "slot": {
+                                    "type": "number",
+                                    "description": "The number of the SIM slot, from 1 onwards"
                                 }
                             }
                         }
